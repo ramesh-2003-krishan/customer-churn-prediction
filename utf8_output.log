@@ -1,0 +1,113 @@
+Loading dataset...
+
+Missing values after cleanup:
+CustomerID              0
+Count                   0
+Country                 0
+State                   0
+City                    0
+Zip Code                0
+Lat Long                0
+Latitude                0
+Longitude               0
+Gender                  0
+Senior Citizen          0
+Partner                 0
+Dependents              0
+Tenure Months           0
+Phone Service           0
+Multiple Lines          0
+Internet Service        0
+Online Security         0
+Online Backup           0
+Device Protection       0
+Tech Support            0
+Streaming TV            0
+Streaming Movies        0
+Contract                0
+Paperless Billing       0
+Payment Method          0
+Monthly Charges         0
+Total Charges           0
+Churn Label             0
+Churn Value             0
+Churn Score             0
+CLTV                    0
+Churn Reason         5174
+dtype: int64
+
+==================================================
+  TRAINING BASELINE MODEL (WITH DATA LEAKAGE)
+==================================================
+
+[Baseline Leaked Model] Test Set Metrics:
+Accuracy:  1.0000
+Precision: 1.0000
+Recall:    1.0000
+F1-score:  1.0000
+ROC-AUC:   1.0000
+
+Confusion Matrix:
+[[1035    0]
+ [   0  374]]
+
+Classification Report (Leaked Model):
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00      1035
+           1       1.00      1.00      1.00       374
+
+    accuracy                           1.00      1409
+   macro avg       1.00      1.00      1.00      1409
+weighted avg       1.00      1.00      1.00      1409
+
+
+==================================================
+  TRAINING CORRECTED MODEL (WITHOUT DATA LEAKAGE)
+==================================================
+Saved 30 model columns to model_columns.pkl
+Starting grid search hyperparameter tuning...
+Fitting 5 folds for each of 24 candidates, totalling 120 fits
+Best parameters found: {'max_depth': 10, 'min_samples_leaf': 1, 'min_samples_split': 5, 'n_estimators': 200}
+
+5-Fold CV F1-Scores on Training Set: [0.66473149 0.63033873 0.6401138  0.65323741 0.67571644]
+Mean CV F1-Score: 0.6528 (+/- 0.0163)
+
+[Corrected Model] Test Set Metrics:
+Accuracy:  0.7729
+Precision: 0.5534
+Recall:    0.7487
+F1-score:  0.6364
+ROC-AUC:   0.8529
+
+Confusion Matrix:
+[[809 226]
+ [ 94 280]]
+
+Classification Report (Corrected Model):
+              precision    recall  f1-score   support
+
+           0       0.90      0.78      0.83      1035
+           1       0.55      0.75      0.64       374
+
+    accuracy                           0.77      1409
+   macro avg       0.72      0.77      0.74      1409
+weighted avg       0.80      0.77      0.78      1409
+
+Corrected model saved successfully to churn_model.pkl
+
+==================================================
+  TOP 10 FEATURE IMPORTANCES (CORRECTED MODEL)
+==================================================
+Tenure Months                  : 0.1694
+Total Charges                  : 0.1281
+Contract_Two year              : 0.1004
+Monthly Charges                : 0.0939
+Dependents_Yes                 : 0.0798
+Internet Service_Fiber optic   : 0.0645
+Payment Method_Electronic check : 0.0515
+Contract_One year              : 0.0415
+Online Security_Yes            : 0.0312
+Tech Support_Yes               : 0.0210
+
+Feature importance plot saved to 'feature_importance.png'
